@@ -1,6 +1,6 @@
 - Update VM
 	1. sudo dnf update -y
-  2. sudo dnf upgrade -y
+  	2. sudo dnf upgrade -y
 
 - Install Apache
 	1. sudo dnf search httpd | head
@@ -10,21 +10,21 @@
 	5. systemctl status httpd
 		// to check status
 
-(Check external IP Address to make sure it's working)
+		//Check external IP Address to make sure it's working)
 
 
 - Install Nano
 	1. sudo dnf install wget nano -y
 	2. cd /var/www/html
-  3. sudo nano index.html
-    //fill with HTML to create a page
+ 	3. sudo nano index.html
+  		//fill with HTML to create a page
 	
 
 - Install PHP
-  1. sudo dnf module enable php:x 
-    //replace x with desired version. I used 7.4.
+  	1. sudo dnf module enable php:x 
+   		//replace x with desired version. I used 7.4.
 	1. sudo dnf install php php-cli php-gd php-curl php-zip php-mbstring
-    //installs php extensions
+   		//installs php extensions
 	2. sudo cystemctl restart httpd
 
 - Install MariaDB
@@ -64,4 +64,14 @@
 		//password replaces X's
 	4. create database wordpress;
 	5. grant all privileges on wordpress.* to 'wordpress'@'localhost';
-  6. show databases;
+ 	6. show databases;
+
+- WP Config
+	1. cd /var/www/html/wordpress
+	2. sudo cp wp-config-sample.php wp-config.php
+	3. sudo nano wp-config.php
+		//fill in database name, user, and password fields with your information (db_name, db_user, db_password)
+		//also, add "define('FS_METHOD','direct');" to final line to disable FTP uploads
+	4. sudo chown -R apache:apache *
+		//change file ownership
+
