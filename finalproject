@@ -1,0 +1,67 @@
+- Update VM
+	1. sudo dnf update -y
+  2. sudo dnf upgrade -y
+
+- Install Apache
+	1. sudo dnf search httpd | head
+	2. sudo dnf install httpd
+	3. sudo systemctl start hhtpd
+	4. systemctl enable httpd
+	5. systemctl status httpd
+		// to check status
+
+(Check external IP Address to make sure it's working)
+
+
+- Install Nano
+	1. sudo dnf install wget nano -y
+	2. cd /var/www/html
+  3. sudo nano index.html
+    //fill with HTML to create a page
+	
+
+- Install PHP
+  1. sudo dnf module enable php:x 
+    //replace x with desired version. I used 7.4.
+	1. sudo dnf install php php-cli php-gd php-curl php-zip php-mbstring
+    //installs php extensions
+	2. sudo cystemctl restart httpd
+
+- Install MariaDB
+	1. sudo dnf install mariadb-server
+	2. sudo systemctl restart mariadb
+	3. sudo systemctl enable mariadb
+		// to start at boot
+  4. sudo systemctl status mariadb
+		// to check status
+
+- Install MySQL
+	1. sudo mysql_secure_installation
+		//press enter if you have no password, set up password after
+		//Y to all questions
+	2. sudo su
+		//to change into root user
+	3. sudo mysql -u root -p
+		//to change to mariadb user
+
+- Create PHP Scripts
+	1. cd /var/www/html/
+	2. sudo touch login.php
+	3. sudo chmod 640 login.php
+	4. sudo chown :apache login.php
+	5. ls -l login.php
+	6. sudo nano login.php
+
+- Download/Extract Wordpress
+	1. sudo wget https://wordpress.org/latest.tar.gz
+	2. sudo tar -xzvf latest.tar.gz
+	3. cd /var/www/html/wordpress
+
+- Create a database for Wordpress
+	1. sudo su
+	2. sudo mysql -u root -p
+	3. create user 'wordpress'@'localhost' identified by 'XXXXXX'
+		//password replaces X's
+	4. create database wordpress;
+	5. grant all privileges on wordpress.* to 'wordpress'@'localhost';
+  6. show databases;
